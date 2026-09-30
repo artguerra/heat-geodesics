@@ -95,6 +95,23 @@ if(EMSCRIPTEN)
     "${CMAKE_BINARY_DIR}/site/.nojekyll"
     COPYONLY
   )
+  configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/web/site.webmanifest"
+    "${CMAKE_BINARY_DIR}/site/site.webmanifest"
+    COPYONLY
+  )
+  file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/site/assets")
+  file(GLOB WEB_ICON_FILES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/web/assets/*"
+  )
+  foreach(WEB_ICON_FILE IN LISTS WEB_ICON_FILES)
+    get_filename_component(WEB_ICON_NAME "${WEB_ICON_FILE}" NAME)
+    configure_file(
+      "${WEB_ICON_FILE}"
+      "${CMAKE_BINARY_DIR}/site/assets/${WEB_ICON_NAME}"
+      COPYONLY
+    )
+  endforeach()
 else()
   add_executable(${PROJECT_NAME} main.cpp)
 
