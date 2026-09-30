@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heat Geodesics</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, system-ui, sans-serif;
+        color: #edf0f5;
+        background: #101216;
+      }
+
+      body {
+        display: grid;
+        grid-template-columns: minmax(280px, 340px) 1fr;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      aside {
+        padding: 28px;
+        background: #181c23;
+        border-right: 1px solid #2c3340;
+      }
+
+      h1 {
+        margin: 0 0 0.4rem;
+        font-size: 1.4rem;
+      }
+
+      h2 {
+        margin: 28px 0 10px;
+        color: #9ca9bc;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      p,
+      label,
+      #status {
+        color: #c2cad7;
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      select,
+      input,
+      button {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 7px;
+        padding: 10px;
+        color: inherit;
+        background: #11151b;
+        border: 1px solid #3a4352;
+        border-radius: 7px;
+      }
+
+      button {
+        font-weight: 650;
+        cursor: pointer;
+        background: #3775e6;
+        border: 0;
+      }
+
+      button.secondary {
+        margin-top: 9px;
+        background: #2a313d;
+      }
+
+      #status {
+        min-height: 2.8em;
+        margin-top: 22px;
+      }
+
+      main {
+        position: relative;
+        min-width: 0;
+      }
+
+      .loading-overlay {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 14px;
+        color: #edf0f5;
+        background: rgb(10 13 18 / 76%);
+        backdrop-filter: blur(3px);
+      }
+
+      .loading-overlay[hidden] {
+        display: none;
+      }
+
+      .spinner {
+        width: 42px;
+        height: 42px;
+        border: 4px solid #394354;
+        border-top-color: #4c86ef;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        will-change: transform;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      canvas {
+        display: block;
+        width: 100%;
+        height: 100vh;
+        touch-action: none;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          grid-template-columns: 1fr;
+        }
+
+        aside {
+          border-right: 0;
+          border-bottom: 1px solid #2c3340;
+        }
+
+        canvas {
+          height: 60vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <h1>Heat Geodesics</h1>
+      <p>Choose a mesh, click vertices to place heat sources, then compute a field.</p>
+
+      <h2>Mesh</h2>
+      <select id="mesh">
+        <option value="/data/bunny_fine.off">Bunny</option>
+        <option value="/data/bunny_lowpoly.off">Bunny (low poly)</option>
+        <option value="/data/torus.off">Torus</option>
+      </select>
+
+      <h2>Sources</h2>
+      <p id="source-count">0 selected</p>
+      <button id="clear" class="secondary">Clear sources</button>
+
+      <h2>Distance field</h2>
+      <button id="distance">Compute distance field</button>
+
+      <h2>Heat simulation</h2>
+      <label>
+        Duration
+        <input id="duration" type="number" min="0" step="0.001" value="0.001">
+      </label>
+      <p>Implicit Euler, fixed time step: 0.0001</p>
+      <button id="heat">Run heat simulation</button>
+
+      <div id="status">Loading WebAssembly…</div>
+    </aside>
+
+    <main>
+      <canvas id="canvas"></canvas>
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner" aria-hidden="true"></div>
+        <div id="loading-message">Loading application…</div>
+      </div>
+    </main>
+
+    {{{ SCRIPT }}}
+    <script src="app.js"></script>
+  </body>
+</html>

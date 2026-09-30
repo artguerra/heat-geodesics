@@ -15,9 +15,6 @@
 #include <igl/facet_adjacency_matrix.h>
 #include <igl/gaussian_curvature.h>
 #include <igl/massmatrix.h>
-#include <polyscope/curve_network.h>
-#include <polyscope/point_cloud.h>
-#include <polyscope/surface_mesh.h>
 
 #include "MeshParts.h"
 

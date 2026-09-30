@@ -2,7 +2,7 @@
 
 An interactive C++ implementation of the heat method for geodesic distance on triangle meshes. Select one or more source vertices in the Polyscope viewer, then compute a distance field or inspect heat diffusion directly.
 
-The project uses a half-edge mesh representation to construct the cotangent Laplacian and Voronoi mass matrix. Its viewer is built with Polyscope and ImGui; meshes in `data/` can be switched from the interface.
+The project uses a half-edge mesh representation to construct the cotangent Laplacian and Voronoi mass matrix. The desktop viewer uses Polyscope and ImGui; the web build uses WebGL and the same C++ solver compiled to WebAssembly (w/ [emscripten](https://emscripten.org/)).
 
 ## The heat method
 

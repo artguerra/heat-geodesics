@@ -32,5 +32,6 @@
 *.app
 
 build/*
+build-web/*
 .cache/*
 .polyscope.ini
