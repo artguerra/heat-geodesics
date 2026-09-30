@@ -90,6 +90,11 @@ if(EMSCRIPTEN)
     "${CMAKE_BINARY_DIR}/site/app.js"
     COPYONLY
   )
+  configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/web/.nojekyll"
+    "${CMAKE_BINARY_DIR}/site/.nojekyll"
+    COPYONLY
+  )
 else()
   add_executable(${PROJECT_NAME} main.cpp)
 
